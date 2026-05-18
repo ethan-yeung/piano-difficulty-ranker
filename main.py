@@ -223,7 +223,6 @@ def compare_pieces(piece1_id: int, piece2_id: int):
     return {"piece1": piece1, "piece2": piece2}
 
 
-
 @app.get("/tiers")
 def get_pieces_by_tier():
     result = {"Beginner": [], 
