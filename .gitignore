@@ -1,13 +1,22 @@
-__pycache__/
-*.pyc
-*.pyo
-.venv/
-venv/
-env/
-.env
-.env.local
+# Python (backend)
+backend/.venv/
+backend/__pycache__/
+backend/.env
+backend/*.pyc
+backend/*.pyo
+
+# Node (frontend, for later)
+frontend/node_modules/
+frontend/.next/
+frontend/.env.local
+
+# IDE
 .vscode/
 .idea/
+
+# OS
 .DS_Store
 Thumbs.db
+
+# Misc
 *.log
