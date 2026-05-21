@@ -1,11 +1,11 @@
-# Python (backend)
+# Python
 backend/.venv/
 backend/__pycache__/
 backend/.env
 backend/*.pyc
 backend/*.pyo
 
-# Node (frontend, for later)
+# Node
 frontend/node_modules/
 frontend/.next/
 frontend/.env.local
