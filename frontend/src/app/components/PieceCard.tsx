@@ -1,4 +1,3 @@
-import { Star } from "lucide-react";
 import DifficultyStars from "./DifficultyStars";
 
 type PieceCardProps = {

@@ -17,3 +17,14 @@ body {
     color: var(--color-piano-cream);
     font-family: var(--font-sans);
 }
+
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
