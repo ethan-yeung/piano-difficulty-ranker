@@ -49,6 +49,13 @@ export default function Home() {
         return matchesSearch && matchesTier;
     });
 
+    const sorted = [...filtered].sort((a, b) => {
+        if (a.tier !== b.tier) {
+            return TIERS.indexOf(a.tier) - TIERS.indexOf(b.tier);
+        }
+        return a.overall - b.overall;
+    });
+    
     const toggleTier = (tier: string) => {
         setSelectedTiers(prev => {
             const next = new Set(prev);
@@ -102,10 +109,10 @@ export default function Home() {
 
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-2xl mx-auto">
-                    {filtered.map(piece => (<PieceCard key={piece.id} piece={piece} />))}
+                    {sorted.map(piece => (<PieceCard key={piece.id} piece={piece} />))}
                 </div>
 
-                {filtered.length === 0 && (query.trim() !== "" || selectedTiers.size > 0) && (
+                {sorted.length === 0 && (query.trim() !== "" || selectedTiers.size > 0) && (
                     <p className="text-piano-muted text-center mt-12 text-lg">
                         No pieces found
                     </p>
