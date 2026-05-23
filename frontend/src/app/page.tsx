@@ -3,15 +3,9 @@ import { useState, useEffect } from "react";
 import PieceCard from "./components/PieceCard";
 import Nav from "./components/Nav";
 import SearchBar from "./components/SearchBar";
+import { TIERS } from "./lib/tiers";
+import TierFilter from "./components/TierFilter";
 
-const TIERS = [
-    "Beginner",
-    "Late Beg / Early Inter",
-    "Intermediate",
-    "Late Inter / Early Adv",
-    "Advanced",
-    "Virtuoso",
-];
 
 export default function Home() {
     const [pieces, setPieces] = useState([]);
@@ -93,20 +87,7 @@ export default function Home() {
 
             <section id="pieces" className="px-8 py-16">
 
-                <div className="flex flex-wrap gap-2 justify-center max-w-screen-2xl mx-auto mb-8 mt-8">
-                    {TIERS.map(tier => (
-                        <button key={tier} type="button"
-                            onClick={() => toggleTier(tier)}
-                            className={`px-4 py-2 rounded-full border text-sm font-medium transition cursor-pointer ${selectedTiers.has(tier)
-                                ? "border-piano-gold text-piano-gold bg-piano-gold/10"
-                                : "border-piano-border text-piano-muted hover:text-piano-cream hover:border-piano-cream"
-                                }`}>
-                            {tier}
-                        </button>
-                    ))}
-                </div>
-
-
+                <TierFilter selectedTiers={selectedTiers} onToggle={toggleTier} />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-2xl mx-auto">
                     {sorted.map(piece => (<PieceCard key={piece.id} piece={piece} />))}
