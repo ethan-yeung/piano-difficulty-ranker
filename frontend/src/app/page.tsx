@@ -4,9 +4,19 @@ import PieceCard from "./components/PieceCard";
 import Nav from "./components/Nav";
 import SearchBar from "./components/SearchBar";
 
+const TIERS = [
+    "Beginner",
+    "Late Beg / Early Inter",
+    "Intermediate",
+    "Late Inter / Early Adv",
+    "Advanced",
+    "Virtuoso",
+];
+
 export default function Home() {
     const [pieces, setPieces] = useState([]);
     const [query, setQuery] = useState("");
+    const [selectedTiers, setSelectedTiers] = useState<Set<string>>(new Set());
 
 
     useEffect(() => {
@@ -19,13 +29,40 @@ export default function Home() {
     }, []);
 
     const normalize = (str: string) =>
-       str.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        str
+            .toLowerCase()
+            .trim()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/\./g, "")
+            .replace(/\s+/g, " ");
+
     const q = normalize(query);
-    const filtered = pieces.filter(piece =>
-        normalize(piece.title).includes(q) ||
-        normalize(piece.composer).includes(q)
-    );
-    
+    const filtered = pieces.filter(piece => {
+        const matchesSearch =
+            normalize(piece.title).includes(q) ||
+            normalize(piece.composer).includes(q);
+
+        const matchesTier =
+            selectedTiers.size === 0 || selectedTiers.has(piece.tier);
+
+        return matchesSearch && matchesTier;
+    });
+
+    const toggleTier = (tier: string) => {
+        setSelectedTiers(prev => {
+            const next = new Set(prev);
+            if (next.has(tier)) {
+                next.delete(tier);
+            } else {
+                next.add(tier);
+            }
+            return next;
+        });
+    };
+
+
+
     return (
         <>
             <Nav />
@@ -47,13 +84,32 @@ export default function Home() {
 
             </section>
 
-            <section
-                id="pieces"
-                className="px-8 py-16"
-            >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-2xl mx-auto">
-                    {filtered.map(piece => (<PieceCard key={piece.id} piece={piece}/>))}
+            <section id="pieces" className="px-8 py-16">
+
+                <div className="flex flex-wrap gap-2 justify-center max-w-screen-2xl mx-auto mb-8 mt-8">
+                    {TIERS.map(tier => (
+                        <button key={tier} type="button"
+                            onClick={() => toggleTier(tier)}
+                            className={`px-4 py-2 rounded-full border text-sm font-medium transition cursor-pointer ${selectedTiers.has(tier)
+                                ? "border-piano-gold text-piano-gold bg-piano-gold/10"
+                                : "border-piano-border text-piano-muted hover:text-piano-cream hover:border-piano-cream"
+                                }`}>
+                            {tier}
+                        </button>
+                    ))}
                 </div>
+
+
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-2xl mx-auto">
+                    {filtered.map(piece => (<PieceCard key={piece.id} piece={piece} />))}
+                </div>
+
+                {filtered.length === 0 && (query.trim() !== "" || selectedTiers.size > 0) && (
+                    <p className="text-piano-muted text-center mt-12 text-lg">
+                        No pieces found
+                    </p>
+                )}
 
             </section>
         </>
