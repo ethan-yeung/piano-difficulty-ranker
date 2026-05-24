@@ -16,7 +16,6 @@ export default function PieceModal({ piece, onClose }: PieceModalProp) {
         { label: "Endurance", value: piece.endurance, weight: 0.15 },
         { label: "Ornamentation", value: piece.ornamentation, weight: 0.10 },
     ];
-
     const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(piece.title + " " + piece.composer)}`;
 
     return (
@@ -42,7 +41,6 @@ export default function PieceModal({ piece, onClose }: PieceModalProp) {
                 <p className="text-piano-muted mb-8">{piece.composer}</p>
 
                 <div className="flex gap-8">
-
                     <div className="flex-1 space-y-1">
                         {DIMENSIONS.map(dim => (
                             <div key={dim.label} className="flex items-center gap-6 py-2">
@@ -72,8 +70,8 @@ export default function PieceModal({ piece, onClose }: PieceModalProp) {
                             <Play className="w-4 h-4" fill="currentColor" />
                             Listen
                         </a>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
