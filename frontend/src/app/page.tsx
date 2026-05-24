@@ -5,10 +5,13 @@ import Nav from "./components/Nav";
 import SearchBar from "./components/SearchBar";
 import { TIERS } from "./lib/tiers";
 import TierFilter from "./components/TierFilter";
+import { Piece } from "./lib/types";
+import PieceModal from "./components/PieceModal";
 
 
 export default function Home() {
-    const [pieces, setPieces] = useState([]);
+    const [pieces, setPieces] = useState<Piece[]>([]);
+    const [selectedPiece, setSelectedPiece] = useState<Piece | null>(null);
     const [query, setQuery] = useState("");
     const [selectedTiers, setSelectedTiers] = useState<Set<string>>(new Set());
 
@@ -49,7 +52,7 @@ export default function Home() {
         }
         return a.overall - b.overall;
     });
-    
+
     const toggleTier = (tier: string) => {
         setSelectedTiers(prev => {
             const next = new Set(prev);
@@ -90,7 +93,14 @@ export default function Home() {
                 <TierFilter selectedTiers={selectedTiers} onToggle={toggleTier} />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-2xl mx-auto">
-                    {sorted.map(piece => (<PieceCard key={piece.id} piece={piece} />))}
+                    {sorted.map(piece => (<PieceCard
+                        key={piece.id}
+                        piece={piece}
+                        onClick={() => {
+                            console.log("clicked", piece);
+                            setSelectedPiece(piece);
+                        }} />))}
+
                 </div>
 
                 {sorted.length === 0 && (query.trim() !== "" || selectedTiers.size > 0) && (
@@ -100,6 +110,10 @@ export default function Home() {
                 )}
 
             </section>
+
+            {selectedPiece && (
+                <PieceModal piece={selectedPiece} onClose={() => setSelectedPiece(null)} />
+            )}
         </>
     );
 }
