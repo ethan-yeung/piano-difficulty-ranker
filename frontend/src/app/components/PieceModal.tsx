@@ -1,13 +1,14 @@
 import { Piece } from "../lib/types";
 import { X, Play } from "lucide-react";
 import DifficultyStars from "./DifficultyStars";
+import { motion } from "framer-motion";
 
-type PieceModalProp = {
+type PieceModalProps = {
     piece: Piece;
     onClose: () => void;
-}
+};
 
-export default function PieceModal({ piece, onClose }: PieceModalProp) {
+export default function PieceModal({ piece, onClose }: PieceModalProps) {
 
     const DIMENSIONS = [
         { label: "Technicality", value: piece.technicality, weight: 0.30 },
@@ -19,10 +20,20 @@ export default function PieceModal({ piece, onClose }: PieceModalProp) {
     const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(piece.title + " " + piece.composer)}`;
 
     return (
-        <div className="fixed inset-0 backdrop-blur-md bg-black/40 flex items-center justify-center z-50 p-6"
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 backdrop-blur-md bg-black/40 flex items-center justify-center z-50 p-6"
             onClick={onClose}>
 
-            <div className="bg-piano-surface border border-piano-border rounded-lg max-w-3xl w-full p-10 relative"
+            <motion.div
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.6 }}
+                transition={{ duration: 0.25 }}
+                className="bg-piano-surface border border-piano-border rounded-lg max-w-3xl w-full p-10 relative"
                 onClick={e => e.stopPropagation()}>
 
                 <button
@@ -66,14 +77,14 @@ export default function PieceModal({ piece, onClose }: PieceModalProp) {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="bg-piano-gold text-piano-bg font-bold text-sm uppercase tracking-wide rounded-lg px-4 py-3 flex items-center justify-center gap-2 hover:opacity-90 transition cursor-pointer">
-                        
+
                             <Play className="w-4 h-4" fill="currentColor" />
                             Listen
                         </a>
 
                     </div>
                 </div>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }

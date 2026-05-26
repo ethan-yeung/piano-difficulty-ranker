@@ -10,3 +10,12 @@ export type Piece = {
     ornamentation: number;
     overall: number;
 };
+
+export type Winners = {
+    technicality: number;
+    musicality: number;
+    rhythmic_complexity: number;
+    endurance: number;
+    ornamentation: number;
+    overall: number;
+};
