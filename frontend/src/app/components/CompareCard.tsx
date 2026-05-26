@@ -43,9 +43,9 @@ export default function CompareCard({ piece, onRemove, winners }: CompareCardPro
                 type="button"
                 onClick={onRemove}
                 aria-label="Remove from comparison"
-                className="absolute top-3 right-3 text-piano-muted hover:text-piano-cream cursor-pointer transition"
+                className="absolute top-5 right-5 text-piano-muted hover:text-piano-cream cursor-pointer transition"
             >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
             </button>
 
             <p className="text-piano-gold font-bold text-xs uppercase tracking-wide mb-1">

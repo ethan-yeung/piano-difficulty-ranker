@@ -11,12 +11,13 @@ type PieceModalProps = {
 export default function PieceModal({ piece, onClose }: PieceModalProps) {
 
     const DIMENSIONS = [
-        { label: "Technicality", value: piece.technicality, weight: 0.30 },
-        { label: "Musicality", value: piece.musicality, weight: 0.30 },
-        { label: "Rhythmic Complexity", value: piece.rhythmic_complexity, weight: 0.15 },
-        { label: "Endurance", value: piece.endurance, weight: 0.15 },
-        { label: "Ornamentation", value: piece.ornamentation, weight: 0.10 },
+        {label: "Technicality", value: piece.technicality, weight: 0.30 },
+        {label: "Musicality", value: piece.musicality, weight: 0.30 },
+        {label: "Rhythmic Complexity", value: piece.rhythmic_complexity, weight: 0.15 },
+        {label: "Endurance", value: piece.endurance, weight: 0.15 },
+        {label: "Ornamentation", value: piece.ornamentation, weight: 0.10 },
     ];
+
     const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(piece.title + " " + piece.composer)}`;
 
     return (

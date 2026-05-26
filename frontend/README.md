@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rankey
 
-## Getting Started
+Rankey iss a a weighted comparison tool for classical piano repertoire, ranking pieces 
+across five dimensions of difficulty.
 
-First, run the development server:
+🎹 **Live soon:** [rankey.app](https://rankey.app)
 
-```bash
+## About
+
+Rankey scores each piece across five weighted dimensions (Technicality 30%, Musicality 30%, Rhythmic Complexity 15%, 
+Endurance 15%, Ornamentation 10%). This helps to produce a consistent overall ranking for head-to-head comparisons.
+
+## Features
+
+- Browse iconic classical pieces ranging in difficulty
+- Live search across titles and composers (accent + period insensitive)
+- Filter by difficulty tier (Beginner → Virtuoso)
+- Click any piece for a detailed score breakdown
+- Compare up to 6 pieces side-by-side
+- Embedded YouTube search for every piece
+
+## Tech Stack
+
+**Frontend:** Next.js 14 (App Router), TypeScript, Tailwind CSS v4, Framer Motion  
+**Backend:** FastAPI, Pydantic  
+**Deployment:** Vercel (frontend), Railway (backend)
+
+## Local Development
+
+### Backend
+
+\`\`\`bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # on windows: venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+\`\`\`
+
+Runs on http://localhost:8000.
+
+### Frontend
+
+\`\`\`bash
+cd frontend
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+\`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Runs on http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+\`\`\`
+piano-difficulty-ranker/
+├── backend/         # FastAPI + Pydantic, 40 hardcoded pieces
+└── frontend/        # Next.js App Router, Tailwind v4
+\`\`\`
 
-## Learn More
+## Author
 
-To learn more about Next.js, take a look at the following resources:
+Built by [Ethan Yeung](https://github.com/ethan-yeung) — UBC Sauder BCom + CS
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---

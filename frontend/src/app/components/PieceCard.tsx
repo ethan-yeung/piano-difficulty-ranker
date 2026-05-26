@@ -11,14 +11,22 @@ type PieceCardProps = {
     compareIsFull: boolean;
 };
 
-export default function PieceCard({ piece, onClick, inCompare, onCompareToggle, compareIsFull}: PieceCardProps) {
+export default function PieceCard({ piece, onClick, inCompare, onCompareToggle, compareIsFull }: PieceCardProps) {
     const isDisabled = !inCompare && compareIsFull;
 
     return (
 
-        <div className="relative rounded-lg bg-piano-surface p-8 border border-piano-border cursor-pointer 
-            hover:border-piano-gold hover:shadow-[0_0_20px_rgba(212,167,68,0.3)] transition duration-300"
+        <motion.div
+            layout
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.2 }} 
+            className="relative rounded-lg bg-piano-surface p-8 border border-piano-border cursor-pointer 
+            hover:border-piano-gold hover:shadow-[0_0_20px_rgba(212,167,68,0.3)] transition-[border-color,box-shadow] duration-300"
             onClick={onClick}>
+                
+
             <p className="text-piano-gold font-bold mb-2">{piece.tier}</p>
             <button type="button" disabled={isDisabled} aria-label="Add to compare"
                 onClick={(e) => {
@@ -48,6 +56,6 @@ export default function PieceCard({ piece, onClick, inCompare, onCompareToggle, 
                 <DifficultyStars score={piece.overall} />
                 <span className="text-piano-muted text-sm">{piece.overall}/10</span>
             </div>
-        </div>
+        </motion.div>
     );
 }

@@ -10,6 +10,9 @@ import PieceModal from "./components/PieceModal";
 import { AnimatePresence } from "framer-motion";
 import CompareCard from "./components/CompareCard";
 import { Winners } from "./lib/types";
+import CriteriaModal from "./components/CriteriaModal";
+import { HelpCircle } from "lucide-react";
+
 
 
 export default function Home() {
@@ -18,6 +21,7 @@ export default function Home() {
     const [query, setQuery] = useState("");
     const [selectedTiers, setSelectedTiers] = useState<Set<string>>(new Set());
     const [compareIds, setCompareIds] = useState<Set<number>>(new Set());
+    const [criteriaOpen, setCriteriaOpen] = useState(false);
 
 
     useEffect(() => {
@@ -81,34 +85,34 @@ export default function Home() {
         });
     };
 
-    
+
     const comparePieces = pieces.filter(p => compareIds.has(p.id));
 
     const winners = comparePieces.length >= 2 ? {
-    technicality: Math.max(...comparePieces.map(p => p.technicality)),
-    musicality: Math.max(...comparePieces.map(p => p.musicality)),
-    rhythmic_complexity: Math.max(...comparePieces.map(p => p.rhythmic_complexity)),
-    endurance: Math.max(...comparePieces.map(p => p.endurance)),
-    ornamentation: Math.max(...comparePieces.map(p => p.ornamentation)),
-    overall: Math.max(...comparePieces.map(p => p.overall)),
-} : null;
+        technicality: Math.max(...comparePieces.map(p => p.technicality)),
+        musicality: Math.max(...comparePieces.map(p => p.musicality)),
+        rhythmic_complexity: Math.max(...comparePieces.map(p => p.rhythmic_complexity)),
+        endurance: Math.max(...comparePieces.map(p => p.endurance)),
+        ornamentation: Math.max(...comparePieces.map(p => p.ornamentation)),
+        overall: Math.max(...comparePieces.map(p => p.overall)),
+    } : null;
 
     const compareColsClass =
-    comparePieces.length === 1 ? "grid-cols-1 max-w-xl mx-auto" :
-    comparePieces.length === 2 ? "grid-cols-2 max-w-screen-2xl mx-auto" :
-    comparePieces.length === 4 ? "grid-cols-2 max-w-screen-2xl mx-auto" :
-    "grid-cols-3 max-w-screen-2xl mx-auto";
+        comparePieces.length === 1 ? "grid-cols-1 max-w-xl mx-auto" :
+            comparePieces.length === 2 ? "grid-cols-2 max-w-screen-2xl mx-auto" :
+                comparePieces.length === 4 ? "grid-cols-2 max-w-screen-2xl mx-auto" :
+                    "grid-cols-3 max-w-screen-2xl mx-auto";
 
     return (
         <>
-            <Nav />
+            <Nav onCriteriaClick={() => setCriteriaOpen(true)} />
 
             <section
                 id="hero"
                 className="min-h-[calc(100vh-73px)] flex flex-col items-center justify-center px-6"
             >
                 <h1 className="font-display text-piano-cream text-7xl mb-4 text-center">
-                    Piano Difficulty Ranker
+                    Rankey
                 </h1>
                 <p className="text-piano-muted text-sm uppercase tracking-widest text-center">
                     A weighted comparison of classical piano repertoire
@@ -141,17 +145,20 @@ export default function Home() {
 
                 <TierFilter selectedTiers={selectedTiers} onToggle={toggleTier} />
 
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-2xl mx-auto">
-                    {sorted.map(piece => (
-                        <PieceCard
-                            key={piece.id}
-                            piece={piece}
-                            onClick={() => setSelectedPiece(piece)}
-                            inCompare={compareIds.has(piece.id)}
-                            onCompareToggle={() => toggleCompare(piece.id)}
-                            compareIsFull={compareIds.size >= 6}
-                        />
-                    ))}
+                    <AnimatePresence>
+                        {sorted.map(piece => (
+                            <PieceCard
+                                key={piece.id}
+                                piece={piece}
+                                onClick={() => setSelectedPiece(piece)}
+                                inCompare={compareIds.has(piece.id)}
+                                onCompareToggle={() => toggleCompare(piece.id)}
+                                compareIsFull={compareIds.size >= 6}
+                            />
+                        ))}
+                    </AnimatePresence>
                 </div>
 
                 {sorted.length === 0 && (query.trim() !== "" || selectedTiers.size > 0) && (
@@ -164,16 +171,33 @@ export default function Home() {
 
             <section id="compare" className="px-8 py-16">
                 <div className="flex items-center gap-4 mb-12 max-w-screen-2xl mx-auto">
+
                     <span className="text-piano-cream text-sm uppercase tracking-widest font-bold">
                         Compare
                     </span>
+
+                    <button
+                        type="button"
+                        onClick={() => setCriteriaOpen(true)}
+                        aria-label="How it works"
+                        className="text-piano-muted hover:text-piano-gold cursor-pointer transition"
+                    >
+                        <HelpCircle className="w-5 h-5" />
+                    </button>
+
                     <div className="h-0.5 bg-piano-gold/50 flex-1" />
                 </div>
 
                 {comparePieces.length === 0 ? (
-                    <p className="text-piano-muted text-center max-w-screen-2xl mx-auto">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            document.getElementById("pieces")?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                        className="text-piano-muted hover:text-piano-cream block mx-auto text-center cursor-pointer transition"
+                    >
                         Click the + on any piece above to add it to the comparison.
-                    </p>
+                    </button>
                 ) : (
                     <div className={`grid ${compareColsClass} gap-6`}>
                         {comparePieces.map(piece => (
@@ -188,9 +212,14 @@ export default function Home() {
                 )}
             </section>
 
+
             <AnimatePresence>
                 {selectedPiece && (
                     <PieceModal piece={selectedPiece} onClose={() => setSelectedPiece(null)} />
+                )}
+
+                {criteriaOpen && (
+                    <CriteriaModal onClose={() => setCriteriaOpen(false)} />
                 )}
             </AnimatePresence>
         </>
