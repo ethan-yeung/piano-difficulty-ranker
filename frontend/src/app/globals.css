@@ -28,3 +28,15 @@ html {
     display: none;
 }
 
+.recharts-surface:focus,
+.recharts-wrapper:focus,
+.recharts-zIndex-layer_100:focus,
+g[class*="recharts-zIndex-layer"]:focus,
+.recharts-radar-polygon:focus,
+svg[class*="recharts"]:focus {
+    outline: none !important;
+}
+.recharts-wrapper *:focus,
+.recharts-wrapper:focus {
+    outline: none !important;
+}

@@ -16,13 +16,14 @@ import { HelpCircle } from "lucide-react";
 
 
 export default function Home() {
+
     const [pieces, setPieces] = useState<Piece[]>([]);
     const [selectedPiece, setSelectedPiece] = useState<Piece | null>(null);
     const [query, setQuery] = useState("");
     const [selectedTiers, setSelectedTiers] = useState<Set<string>>(new Set());
     const [compareIds, setCompareIds] = useState<Set<number>>(new Set());
     const [criteriaOpen, setCriteriaOpen] = useState(false);
-
+    const [compareView, setCompareView] = useState<"stars" | "radar">("stars");
 
     useEffect(() => {
         async function load() {
@@ -176,6 +177,29 @@ export default function Home() {
                         Compare
                     </span>
 
+                    <div className="ml-4 flex items-center gap-2 bg-piano-bg border border-piano-border rounded-full p-1">
+                        <button
+                            type="button"
+                            onClick={() => setCompareView("stars")}
+                            className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide transition cursor-pointer ${compareView === "stars"
+                                    ? "bg-piano-gold text-piano-bg"
+                                    : "text-piano-muted hover:text-piano-cream"
+                                }`}
+                        >
+                            Stars
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setCompareView("radar")}
+                            className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide transition cursor-pointer ${compareView === "radar"
+                                    ? "bg-piano-gold text-piano-bg"
+                                    : "text-piano-muted hover:text-piano-cream"
+                                }`}
+                        >
+                            Radar
+                        </button>
+                    </div>
+
                     <button
                         type="button"
                         onClick={() => setCriteriaOpen(true)}
@@ -206,6 +230,7 @@ export default function Home() {
                                 piece={piece}
                                 onRemove={() => toggleCompare(piece.id)}
                                 winners={winners}
+                                viewMode={compareView}
                             />
                         ))}
                     </div>
