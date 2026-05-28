@@ -35,17 +35,18 @@ export default function CompareCard({ piece, onRemove, winners, viewMode }: Comp
 
     return (
         <motion.div
-            animate={{
-                boxShadow: isOverallWinner ? [
-                    "0 0 0px rgba(212,167,68,0)",
-                    "0 0 30px rgba(212,167,68,0.4)",
-                    "0 0 0px rgba(212,167,68,0)"
-                ] : "0 0 0px rgba(212,167,68,0)"
-            }}
+            layout
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
             transition={{
-                duration: 2,
-                repeat: isOverallWinner ? Infinity : 0,
-                ease: "easeInOut"
+                duration: 0.25,
+                ease: "easeInOut",
+                boxShadow: {
+                    duration: 2,
+                    repeat: isOverallWinner ? Infinity : 0,
+                    ease: "easeInOut"
+                }
             }}
             className="relative rounded-lg bg-piano-surface border border-piano-border p-6"
         >

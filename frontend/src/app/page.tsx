@@ -7,12 +7,11 @@ import { TIERS } from "./lib/tiers";
 import TierFilter from "./components/TierFilter";
 import { Piece } from "./lib/types";
 import PieceModal from "./components/PieceModal";
-import { AnimatePresence } from "framer-motion";
 import CompareCard from "./components/CompareCard";
 import { Winners } from "./lib/types";
 import CriteriaModal from "./components/CriteriaModal";
 import { HelpCircle } from "lucide-react";
-
+import { motion, AnimatePresence } from "framer-motion";
 
 
 export default function Home() {
@@ -24,6 +23,7 @@ export default function Home() {
     const [compareIds, setCompareIds] = useState<Set<number>>(new Set());
     const [criteriaOpen, setCriteriaOpen] = useState(false);
     const [compareView, setCompareView] = useState<"stars" | "radar">("stars");
+    const [displayCount, setDisplayCount] = useState(0);
 
     useEffect(() => {
         async function load() {
@@ -33,6 +33,7 @@ export default function Home() {
         }
         load();
     }, []);
+
 
     const normalize = (str: string) =>
         str
@@ -89,6 +90,12 @@ export default function Home() {
 
     const comparePieces = pieces.filter(p => compareIds.has(p.id));
 
+    useEffect(() => {
+        if (comparePieces.length > displayCount) {
+            setDisplayCount(comparePieces.length);
+        }
+    }, [comparePieces.length, displayCount]);
+
     const winners = comparePieces.length >= 2 ? {
         technicality: Math.max(...comparePieces.map(p => p.technicality)),
         musicality: Math.max(...comparePieces.map(p => p.musicality)),
@@ -99,9 +106,9 @@ export default function Home() {
     } : null;
 
     const compareColsClass =
-        comparePieces.length === 1 ? "grid-cols-1 max-w-xl mx-auto" :
-            comparePieces.length === 2 ? "grid-cols-2 max-w-screen-2xl mx-auto" :
-                comparePieces.length === 4 ? "grid-cols-2 max-w-screen-2xl mx-auto" :
+        displayCount === 1 ? "grid-cols-1 max-w-xl mx-auto" :
+            displayCount === 2 ? "grid-cols-2 max-w-screen-2xl mx-auto" :
+                displayCount === 4 ? "grid-cols-2 max-w-screen-2xl mx-auto" :
                     "grid-cols-3 max-w-screen-2xl mx-auto";
 
     return (
@@ -182,8 +189,8 @@ export default function Home() {
                             type="button"
                             onClick={() => setCompareView("stars")}
                             className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide transition cursor-pointer ${compareView === "stars"
-                                    ? "bg-piano-gold text-piano-bg"
-                                    : "text-piano-muted hover:text-piano-cream"
+                                ? "bg-piano-gold text-piano-bg"
+                                : "text-piano-muted hover:text-piano-cream"
                                 }`}
                         >
                             Stars
@@ -192,8 +199,8 @@ export default function Home() {
                             type="button"
                             onClick={() => setCompareView("radar")}
                             className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide transition cursor-pointer ${compareView === "radar"
-                                    ? "bg-piano-gold text-piano-bg"
-                                    : "text-piano-muted hover:text-piano-cream"
+                                ? "bg-piano-gold text-piano-bg"
+                                : "text-piano-muted hover:text-piano-cream"
                                 }`}
                         >
                             Radar
@@ -212,29 +219,42 @@ export default function Home() {
                     <div className="h-0.5 bg-piano-gold/50 flex-1" />
                 </div>
 
-                {comparePieces.length === 0 ? (
-                    <button
-                        type="button"
-                        onClick={() => {
-                            document.getElementById("pieces")?.scrollIntoView({ behavior: "smooth" });
-                        }}
-                        className="text-piano-muted hover:text-piano-cream block mx-auto text-center cursor-pointer transition"
-                    >
-                        Click the + on any piece above to add it to the comparison.
-                    </button>
-                ) : (
-                    <div className={`grid ${compareColsClass} gap-6`}>
-                        {comparePieces.map(piece => (
-                            <CompareCard
-                                key={piece.id}
-                                piece={piece}
-                                onRemove={() => toggleCompare(piece.id)}
-                                winners={winners}
-                                viewMode={compareView}
-                            />
-                        ))}
-                    </div>
-                )}
+                <AnimatePresence mode="wait">
+                    {comparePieces.length === 0 ? (
+                        <motion.button
+                            key="empty"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            type="button"
+                            onClick={() => {
+                                document.getElementById("pieces")?.scrollIntoView({ behavior: "smooth" });
+                            }}
+                            className="text-piano-muted hover:text-piano-cream block mx-auto text-center cursor-pointer transition"
+                        >
+                            Click the + on any piece above to add it to the comparison.
+                        </motion.button>
+                    ) : (
+                        <motion.div
+                            key="grid"
+                            layout="position"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }} className={`grid ${compareColsClass} gap-6`}>
+                            <AnimatePresence mode="popLayout" onExitComplete={() => setDisplayCount(comparePieces.length)}>
+                                {comparePieces.map(piece => (
+                                    <CompareCard
+                                        key={piece.id}
+                                        piece={piece}
+                                        onRemove={() => toggleCompare(piece.id)}
+                                        winners={winners}
+                                        viewMode={compareView}
+                                    />
+                                ))}
+                            </AnimatePresence>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </section>
 
 
