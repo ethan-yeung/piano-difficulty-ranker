@@ -36,7 +36,7 @@ class Piece(BaseModel):
     overall: float
 
 pieces = [
-    # Beginner
+    # aBeginner 
     Piece(id=1, tier="Beginner", title="Minuet in G Major", composer="Bach",
           technicality=1.0, musicality=3.0, rhythmic_complexity=0.5,
           endurance=1.5, ornamentation=2.0, overall=1.7),
@@ -48,7 +48,7 @@ pieces = [
           endurance=1.0, ornamentation=0.5, overall=1.7),
 
     # Late Beg / Early Inter
-    Piece(id=4, tier="Late Beg / Early Inter", title="Prelude in A major, Op. 28 No. 7", composer="Chopin",
+    Piece(id=4, tier="Late Beg / Early Inter", title="Prelude in A Major, Op. 28 No. 7", composer="Chopin",
           technicality=2.0, musicality=3.5, rhythmic_complexity=1.5,
           endurance=1.5, ornamentation=0.0, overall=2.1),
     Piece(id=5, tier="Late Beg / Early Inter", title="Prelude in C Major (WTC Book 1)", composer="Bach",
@@ -60,6 +60,18 @@ pieces = [
     Piece(id=7, tier="Late Beg / Early Inter", title="Sonata No. 16, K. 545, 1st Movement", composer="Mozart",
           technicality=2.0, musicality=7.0, rhythmic_complexity=2.5,
           endurance=2.0, ornamentation=2.0, overall=3.6),
+    Piece(id=41, tier="Late Beg / Early Inter", title="Solfeggietto", composer="C.P.E. Bach",
+          technicality=3.0, musicality=3.0, rhythmic_complexity=2.0,
+          endurance=2.0, ornamentation=0.0, overall=2.4),
+    Piece(id=47, tier="Late Beg / Early Inter", title="Waltz in A Minor, B. 150 (Op. Posth.)", composer="Chopin",
+          technicality=2.5, musicality=4.5, rhythmic_complexity=2.5,
+          endurance=2.0, ornamentation=2.5, overall=3.0),
+    Piece(id=53, tier="Late Beg / Early Inter", title="Passacaglia", composer="Handel/Halvorsen",
+          technicality=3.5, musicality=5.0, rhythmic_complexity=2.0,
+          endurance=2.0, ornamentation=0.0, overall=3.2),
+    Piece(id=54, tier="Late Beg / Early Inter", title="Canon in D", composer="Pachelbel",
+          technicality=2.5, musicality=4.5, rhythmic_complexity=2.5,
+          endurance=2.0, ornamentation=0.0, overall=2.8),
 
     # Intermediate
     Piece(id=8, tier="Intermediate", title="Für Elise", composer="Beethoven",
@@ -83,11 +95,17 @@ pieces = [
     Piece(id=14, tier="Intermediate", title="Rondo alla Turca (K. 331, 3rd Mvt)", composer="Mozart",
           technicality=4.5, musicality=5.5, rhythmic_complexity=3.0,
           endurance=3.0, ornamentation=3.0, overall=4.2),
+    Piece(id=42, tier="Intermediate", title="The Entertainer", composer="Joplin",
+          technicality=4.0, musicality=3.5, rhythmic_complexity=3.0,
+          endurance=3.0, ornamentation=1.5, overall=3.3),
+    Piece(id=44, tier="Intermediate", title="Reverie", composer="Debussy",
+          technicality=3.5, musicality=6.0, rhythmic_complexity=5.5,
+          endurance=2.5, ornamentation=1.5, overall=4.2),
 
     # Late Inter / Early Adv
     Piece(id=15, tier="Late Inter / Early Adv", title="Serenade", composer="Schubert/Liszt",
-          technicality=6.0, musicality=6.5, rhythmic_complexity=3.5,
-          endurance=4.0, ornamentation=5.5, overall=5.4),
+          technicality=6.0, musicality=7.5, rhythmic_complexity=3.5,
+          endurance=4.0, ornamentation=5.5, overall=5.7),
     Piece(id=16, tier="Late Inter / Early Adv", title="Liebestraum No. 3", composer="Liszt",
           technicality=6.0, musicality=7.0, rhythmic_complexity=3.0,
           endurance=3.0, ornamentation=5.0, overall=5.3),
@@ -109,8 +127,17 @@ pieces = [
     Piece(id=22, tier="Late Inter / Early Adv", title="Pathétique Sonata, 3rd Mvt", composer="Beethoven",
           technicality=5.0, musicality=7.0, rhythmic_complexity=4.0,
           endurance=3.0, ornamentation=4.0, overall=5.1),
+    Piece(id=43, tier="Late Inter / Early Adv", title="Maple Leaf Rag", composer="Joplin",
+          technicality=5.5, musicality=5.0, rhythmic_complexity=5.5,
+          endurance=3.5, ornamentation=2.0, overall=4.7),
+    Piece(id=55, tier="Late Inter / Early Adv", title="Sonata No. 17 (Tempest), 3rd Mvt", composer="Beethoven",
+          technicality=5.5, musicality=6.0, rhythmic_complexity=5.0,
+          endurance=4.5, ornamentation=2.0, overall=5.1),
+    Piece(id=57, tier="Late Inter / Early Adv", title="Prelude Op. 28 No. 16 in B♭ minor", composer="Chopin",
+          technicality=6.0, musicality=5.5, rhythmic_complexity=4.5,
+          endurance=4.0, ornamentation=2.0, overall=4.9),
 
-    # Advanced
+    # Advanced 
     Piece(id=23, tier="Advanced", title="Prelude in C# minor, Op. 3 No. 2", composer="Rachmaninoff",
           technicality=6.5, musicality=7.5, rhythmic_complexity=3.5,
           endurance=5.5, ornamentation=2.5, overall=6.0),
@@ -141,6 +168,24 @@ pieces = [
     Piece(id=32, tier="Advanced", title="Étude Op. 25 No. 12 (Ocean)", composer="Chopin",
           technicality=8.0, musicality=6.0, rhythmic_complexity=5.0,
           endurance=7.5, ornamentation=2.0, overall=6.6),
+    Piece(id=46, tier="Advanced", title="Un Sospiro", composer="Liszt",
+          technicality=7.5, musicality=8.0, rhythmic_complexity=7.0,
+          endurance=6.0, ornamentation=5.5, overall=7.2),
+    Piece(id=49, tier="Advanced", title="Liebesleid (Love's Sorrow)", composer="Kreisler/Rachmaninoff",
+          technicality=7.5, musicality=8.5, rhythmic_complexity=7.0,
+          endurance=5.5, ornamentation=4.5, overall=7.1),
+    Piece(id=50, tier="Advanced", title="Étude Op. 10 No. 1 (Waterfall)", composer="Chopin",
+          technicality=8.0, musicality=6.5, rhythmic_complexity=7.0,
+          endurance=8.0, ornamentation=1.0, overall=6.7),
+    Piece(id=51, tier="Advanced", title="In the Hall of the Mountain King", composer="Grieg/Ginzburg",
+          technicality=7.5, musicality=7.5, rhythmic_complexity=6.0,
+          endurance=8.0, ornamentation=4.0, overall=7.0),
+    Piece(id=52, tier="Advanced", title="Flight of the Bumblebee", composer="Rimsky-Korsakov",
+          technicality=7.0, musicality=6.0, rhythmic_complexity=6.0,
+          endurance=5.0, ornamentation=2.0, overall=5.8),
+    Piece(id=56, tier="Advanced", title="Étude Op. 25 No. 9 (Butterfly)", composer="Chopin",
+          technicality=6.5, musicality=6.0, rhythmic_complexity=5.0,
+          endurance=4.0, ornamentation=2.0, overall=5.3),
 
     # Virtuoso
     Piece(id=33, tier="Virtuoso", title="Ballade No. 1 in G minor, Op. 23", composer="Chopin",
@@ -167,6 +212,21 @@ pieces = [
     Piece(id=40, tier="Virtuoso", title="Gaspard de la nuit (Ondine - Le Gibet - Scarbo)", composer="Ravel",
           technicality=10.0, musicality=10.0, rhythmic_complexity=9.5,
           endurance=9.0, ornamentation=3.0, overall=9.1),
+    Piece(id=45, tier="Virtuoso", title="Islamey", composer="Balakirev",
+          technicality=10.0, musicality=9.0, rhythmic_complexity=9.5,
+          endurance=9.5, ornamentation=7.5, overall=9.3),
+    Piece(id=48, tier="Virtuoso", title="Danse Macabre, Op. 40", composer="Saint-Saëns/Liszt",
+          technicality=8.5, musicality=7.0, rhythmic_complexity=7.0,
+          endurance=8.0, ornamentation=8.0, overall=7.7),
+    Piece(id=58, tier="Virtuoso", title="Étude No. 6", composer="Paganini/Liszt",
+          technicality=8.0, musicality=7.5, rhythmic_complexity=6.5,
+          endurance=5.5, ornamentation=7.5, overall=7.2),
+    Piece(id=59, tier="Virtuoso", title="Passacaglia in B Minor", composer="Godowsky",
+          technicality=9.0, musicality=9.0, rhythmic_complexity=8.0,
+          endurance=8.5, ornamentation=5.0, overall=8.4),
+    Piece(id=60, tier="Virtuoso", title="Gallop in A Minor, S. 218", composer="Liszt",
+          technicality=8.5, musicality=7.0, rhythmic_complexity=8.5,
+          endurance=8.5, ornamentation=7.5, overall=8.0),
 ]
 
 
