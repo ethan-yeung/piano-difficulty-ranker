@@ -41,7 +41,7 @@ export default function PieceModal({ piece, onClose }: PieceModalProps) {
                     type="button"
                     onClick={onClose}
                     aria-label="Close"
-                    className="absolute top-4 right-4 text-piano-muted hover:text-piano-cream cursor-pointer transition"
+                    className="absolute top-4 right-4 p-2 -m-2 text-piano-muted hover:text-piano-cream cursor-pointer transition"
                 >
                     <X className="w-5 h-5" />
                 </button>
@@ -49,7 +49,7 @@ export default function PieceModal({ piece, onClose }: PieceModalProps) {
                 <p className="text-piano-gold font-bold text-sm uppercase tracking-wide mb-2">
                     {piece.tier}
                 </p>
-                <h2 className="font-display text-piano-cream text-3xl mb-2">{piece.title}</h2>
+                <h2 className="font-display text-piano-cream text-2xl md:text-3xl mb-2">{piece.title}</h2>
                 <p className="text-piano-muted mb-8">{piece.composer}</p>
 
                 <div className="flex flex-col md:flex-row gap-8">

@@ -7,7 +7,7 @@ import { TIERS } from "../lib/tiers";
 
    export default function TierFilter({ selectedTiers, onToggle }: TierFilterProps) {
        return (
-           <div className="flex flex-wrap gap-2 justify-center max-w-screen-2xl mx-auto mb-8 mt-8">
+           <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center gap-2 max-w-screen-2xl mx-auto mb-8 mt-8">
                {TIERS.map(tier => (
                    <button
                        key={tier}

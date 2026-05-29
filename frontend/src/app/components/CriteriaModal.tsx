@@ -36,12 +36,12 @@ export default function CriteriaModal({ onClose }: CriteriaModalProps) {
                     type="button"
                     onClick={onClose}
                     aria-label="Close"
-                    className="absolute top-4 right-4 text-piano-muted hover:text-piano-cream cursor-pointer transition"
+                    className="absolute top-4 right-4 p-2 -m-2 text-piano-muted hover:text-piano-cream cursor-pointer transition"
                 >
                     <X className="w-5 h-5" />
                 </button>
 
-                <h2 className="font-display text-piano-cream text-3xl mb-2">How Pieces Are Ranked</h2>
+                <h2 className="font-display text-piano-cream text-2xl md:text-3xl mb-2">How Pieces Are Ranked</h2>
                 <div className="space-y-4 text-piano-muted text-sm mb-8 mt-6">
                     <p>
                         Difficulty is obviously a relative concept. These rankings are just a structured way to compare pieces using consistent criteria.

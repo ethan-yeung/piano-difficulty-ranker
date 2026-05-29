@@ -48,13 +48,13 @@ export default function CompareCard({ piece, onRemove, winners, viewMode }: Comp
                     ease: "easeInOut"
                 }
             }}
-            className="relative rounded-lg bg-piano-surface border border-piano-border p-6"
+            className="relative rounded-lg bg-piano-surface border border-piano-border p-4 md:p-6"
         >
             <button
                 type="button"
                 onClick={onRemove}
                 aria-label="Remove from comparison"
-                className="absolute top-5 right-5 text-piano-muted hover:text-piano-cream cursor-pointer transition"
+                className="absolute top-5 right-5 p-2 -m-2 text-piano-muted hover:text-piano-cream cursor-pointer transition"
             >
                 <X className="w-5 h-5" />
             </button>

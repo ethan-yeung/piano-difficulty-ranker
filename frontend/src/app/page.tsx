@@ -132,7 +132,7 @@ export default function Home() {
 
             </section>
 
-            <section id="pieces" className="px-4 md:px-8 py-16">
+            <section id="pieces" className="px-4 md:px-8 py-8 md:py-16">
 
                 <div className="flex items-center gap-4 mb-4 max-w-screen-2xl mx-auto mt-8">
                     <span className="text-piano-cream text-base uppercase tracking-widest font-bold">
@@ -140,7 +140,7 @@ export default function Home() {
                     </span>
                     <div className="h-0.5 bg-piano-gold/35 flex-1" />
                 </div>
-                <div className="flex items-center justify-between mb-12 max-w-screen-2xl mx-auto">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0 mb-8 md:mb-12 max-w-screen-2xl mx-auto">
                     <p className="text-piano-muted text-base">
                         Click a piece for details, or use + to add it to the comparison tool below.
                     </p>
@@ -177,8 +177,8 @@ export default function Home() {
 
             </section>
 
-            <section id="compare" className="px-4 md:px-8 py-16">
-                <div className="flex items-center gap-4 mb-12 max-w-screen-2xl mx-auto">
+            <section id="compare" className="px-4 md:px-8 py-8 md:py-16">
+                <div className="flex items-center gap-4 mb-8 md:mb-12 max-w-screen-2xl mx-auto">
 
                     <span className="text-piano-cream text-sm uppercase tracking-widest font-bold">
                         Compare
@@ -211,12 +211,12 @@ export default function Home() {
                         type="button"
                         onClick={() => setCriteriaOpen(true)}
                         aria-label="How it works"
-                        className="text-piano-muted hover:text-piano-gold cursor-pointer transition"
+                        className="text-piano-muted hover:text-piano-gold p-2 -m-2 cursor-pointer transition"
                     >
                         <HelpCircle className="w-5 h-5" />
                     </button>
 
-                    <div className="h-0.5 bg-piano-gold/50 flex-1" />
+                    <div className="hidden md:block h-0.5 bg-piano-gold/50 flex-1" />
                 </div>
 
                 <AnimatePresence mode="wait">
