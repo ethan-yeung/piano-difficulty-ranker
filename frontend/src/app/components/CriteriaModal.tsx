@@ -29,7 +29,7 @@ export default function CriteriaModal({ onClose }: CriteriaModalProps) {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.6 }}
                 transition={{ duration: 0.25 }}
-                className="bg-piano-surface border border-piano-border rounded-lg max-w-3xl w-full p-10 relative"
+                className="bg-piano-surface border border-piano-border rounded-lg max-w-3xl w-full p-6 md:p-10 relative"
                 onClick={e => e.stopPropagation()}>
 
                 <button
@@ -55,8 +55,8 @@ export default function CriteriaModal({ onClose }: CriteriaModalProps) {
 
                 <div className="space-y-3">
                     {CRITERIA.map(crit => (
-                        <div key={crit.label} className="flex items-start gap-4 px-3 py-3 border border-piano-border rounded">
-                            <span className="text-piano-cream text-sm font-bold w-44 shrink-0">
+                        <div key={crit.label} className="flex items-start gap-2 md:gap-4 px-3 py-3 border border-piano-border rounded">
+                            <span className="text-piano-cream text-sm font-bold w-28 md:w-44 shrink-0">
                                 {crit.label}
                             </span>
                             <span className="text-piano-gold text-sm font-bold w-12 shrink-0">

@@ -34,7 +34,7 @@ export default function PieceModal({ piece, onClose }: PieceModalProps) {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.6 }}
                 transition={{ duration: 0.25 }}
-                className="bg-piano-surface border border-piano-border rounded-lg max-w-3xl w-full p-10 relative"
+                className="bg-piano-surface border border-piano-border rounded-lg max-w-3xl w-full p-6 md:p-10 relative"
                 onClick={e => e.stopPropagation()}>
 
                 <button
@@ -52,18 +52,18 @@ export default function PieceModal({ piece, onClose }: PieceModalProps) {
                 <h2 className="font-display text-piano-cream text-3xl mb-2">{piece.title}</h2>
                 <p className="text-piano-muted mb-8">{piece.composer}</p>
 
-                <div className="flex gap-8">
+                <div className="flex flex-col md:flex-row gap-8">
                     <div className="flex-1 space-y-1">
                         {DIMENSIONS.map(dim => (
-                            <div key={dim.label} className="flex items-center gap-6 py-2">
-                                <span className="text-piano-cream text-sm w-40 shrink-0">{dim.label}</span>
+                            <div key={dim.label} className="flex items-center gap-3 md:gap-6 py-2">
+                                <span className="text-piano-cream text-sm w-32 md:w-40 shrink-0">{dim.label}</span>
                                 <DifficultyStars score={dim.value} />
                                 <span className="text-piano-muted text-sm">{dim.value.toFixed(1)}</span>
                             </div>
                         ))}
                     </div>
 
-                    <div className="w-48 flex flex-col gap-4">
+                    <div className="w-full md:w-48 flex flex-col gap-4">
                         <div className="bg-piano-bg border border-piano-border rounded-lg p-6 text-center">
                             <p className="font-display text-piano-gold text-5xl">
                                 {piece.overall.toFixed(1)}

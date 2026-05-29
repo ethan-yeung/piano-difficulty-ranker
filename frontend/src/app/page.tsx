@@ -117,7 +117,7 @@ export default function Home() {
 
             <section
                 id="hero"
-                className="min-h-[calc(100vh-73px)] flex flex-col items-center justify-center px-6"
+                className="min-h-[calc(100vh-73px)] flex flex-col items-center justify-center px-4 md:px-6"
             >
                 <h1 className="font-display text-piano-cream text-7xl mb-4 text-center">
                     Rankey
@@ -132,7 +132,7 @@ export default function Home() {
 
             </section>
 
-            <section id="pieces" className="px-8 py-16">
+            <section id="pieces" className="px-4 md:px-8 py-16">
 
                 <div className="flex items-center gap-4 mb-4 max-w-screen-2xl mx-auto mt-8">
                     <span className="text-piano-cream text-base uppercase tracking-widest font-bold">
@@ -177,7 +177,7 @@ export default function Home() {
 
             </section>
 
-            <section id="compare" className="px-8 py-16">
+            <section id="compare" className="px-4 md:px-8 py-16">
                 <div className="flex items-center gap-4 mb-12 max-w-screen-2xl mx-auto">
 
                     <span className="text-piano-cream text-sm uppercase tracking-widest font-bold">
