@@ -107,9 +107,9 @@ export default function Home() {
 
     const compareColsClass =
         displayCount === 1 ? "grid-cols-1 max-w-xl mx-auto" :
-            displayCount === 2 ? "grid-cols-2 max-w-screen-2xl mx-auto" :
-                displayCount === 4 ? "grid-cols-2 max-w-screen-2xl mx-auto" :
-                    "grid-cols-3 max-w-screen-2xl mx-auto";
+            displayCount === 2 ? "grid-cols-1 md:grid-cols-2 max-w-screen-2xl mx-auto" :
+                displayCount === 4 ? "grid-cols-1 md:grid-cols-2 max-w-screen-2xl mx-auto" :
+                    "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-screen-2xl mx-auto";
 
     return (
         <>
