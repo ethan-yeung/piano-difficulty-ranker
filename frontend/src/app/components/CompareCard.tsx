@@ -1,5 +1,5 @@
 import { Piece } from "../lib/types";
-import { X } from "lucide-react";
+import { X, Play } from "lucide-react";
 import DifficultyStars from "./DifficultyStars";
 import { Winners } from "../lib/types";
 import { motion, AnimatePresence } from "framer-motion";
@@ -32,6 +32,7 @@ export default function CompareCard({ piece, onRemove, winners, viewMode }: Comp
     ];
 
     const isOverallWinner = winners !== null && piece.overall === winners.overall;
+    const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(piece.title + " " + piece.composer)}`;
 
     return (
         <motion.div
@@ -144,6 +145,15 @@ export default function CompareCard({ piece, onRemove, winners, viewMode }: Comp
                 <p className="text-piano-muted text-xs uppercase tracking-widest mt-1">
                     Overall
                 </p>
+                <a
+                    href={youtubeSearchUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 bg-piano-gold text-piano-bg font-bold text-xs uppercase tracking-wide rounded-lg px-2 py-1.5 inline-flex items-center justify-center gap-2 hover:opacity-90 transition cursor-pointer">
+
+                    <Play className="w-3 h-3" fill="currentColor" />
+                    Listen
+                </a>
             </div>
 
         </motion.div>

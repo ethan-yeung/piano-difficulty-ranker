@@ -12,6 +12,12 @@ export default function SearchBar({query, setQuery} : SearchBarProps) {
         <div className="relative w-full max-w-xl mt-8">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-piano-muted pointer-events-none" />
             <input
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        document.getElementById("pieces")?.scrollIntoView({ behavior: "smooth" });
+                        e.currentTarget.blur();
+                    }
+                }}
                 type="text" placeholder="Search pieces or composers..."
                 value = {query}
                 onChange={(e) => setQuery(e.target.value)}
