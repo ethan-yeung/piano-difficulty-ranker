@@ -26,7 +26,7 @@ export default function PieceModal({ piece, onClose }: PieceModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 backdrop-blur-md bg-black/40 flex items-center justify-center z-50 p-6"
+            className="fixed inset-0 backdrop-blur-md bg-black/40 flex items-start md:items-center justify-center z-50 p-6 overflow-y-auto"
             onClick={onClose}>
 
             <motion.div
@@ -55,8 +55,8 @@ export default function PieceModal({ piece, onClose }: PieceModalProps) {
                 <div className="flex flex-col md:flex-row gap-8">
                     <div className="flex-1 space-y-1">
                         {DIMENSIONS.map(dim => (
-                            <div key={dim.label} className="flex items-center gap-3 md:gap-6 py-2">
-                                <span className="text-piano-cream text-sm w-32 md:w-40 shrink-0">{dim.label}</span>
+                            <div key={dim.label} className="flex items-center gap-2 md:gap-6 py-2">
+                                <span className="text-piano-cream text-sm w-24 md:w-40 shrink-0">{dim.label}</span>
                                 <DifficultyStars score={dim.value} />
                                 <span className="text-piano-muted text-sm">{dim.value.toFixed(1)}</span>
                             </div>

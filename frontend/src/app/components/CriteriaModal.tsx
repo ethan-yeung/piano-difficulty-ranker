@@ -21,7 +21,7 @@ export default function CriteriaModal({ onClose }: CriteriaModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 backdrop-blur-md bg-black/40 flex items-center justify-center z-50 p-6"
+            className="fixed inset-0 backdrop-blur-md bg-black/40 flex items-start md:items-center justify-center z-50 p-6 overflow-y-auto"
             onClick={onClose}>
 
             <motion.div
