@@ -58,7 +58,7 @@ export default function PieceModal({ piece, onClose }: PieceModalProps) {
                             <div key={dim.label} className="flex items-center gap-2 md:gap-6 py-2">
                                 <span className="text-piano-cream text-sm w-24 md:w-40 shrink-0">{dim.label}</span>
                                 <DifficultyStars score={dim.value} />
-                                <span className="text-piano-muted text-sm">{dim.value.toFixed(1)}</span>
+                                <span className="text-piano-muted text-sm ml-2">{dim.value.toFixed(1)}</span>
                             </div>
                         ))}
                     </div>
