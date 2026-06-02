@@ -1,9 +1,41 @@
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends, Cookie, Response
 from pydantic import BaseModel
 from enum import Enum
+from contextlib import asynccontextmanager
+from database import engine, SessionLocal, Base, get_db
+from models import Rating, Vote
+from sqlalchemy.orm import Session
+from sqlalchemy import func, or_, and_
+import random
+import uuid
 
-app = FastAPI()
+def seed_ratings(db):
+    for piece in pieces:
+        for vote_type in ["player", "listener"]:
+            existing = db.query(Rating).filter(
+            Rating.piece_id == piece.id,
+            Rating.vote_type == vote_type
+            ).first()
+            if existing is None:
+                db.add(Rating(piece_id=piece.id, vote_type=vote_type))
+    
+    db.commit()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    
+    Base.metadata.create_all(bind=engine)
+    db = SessionLocal()
+    try:
+        seed_ratings(db)
+    finally:
+        db.close()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -41,6 +73,11 @@ class Piece(BaseModel):
     endurance: float
     ornamentation: float
     overall: float
+
+class VoteRequest(BaseModel):
+    winner_piece_id: int
+    loser_piece_id: int
+    vote_type: str
 
 pieces = [
     # Beginner
@@ -310,4 +347,76 @@ def get_pieces_by_tier():
     for piece in pieces:
         result[piece.tier].append(piece)
     return result
-        
+
+
+@app.get("/next-pair")
+def next_pair(type: str, db: Session = Depends(get_db)):
+    ratings = db.query(Rating).filter(Rating.vote_type == type).all()
+    if not ratings:
+        raise HTTPException(status_code=400, detail="Invalid vote type")
+    anchor = random.choice(ratings)
+    closest = db.query(Rating).filter(Rating.vote_type == type, Rating.id != anchor.id).order_by(func.abs(Rating.elo - anchor.elo)).limit(5).all()
+    opponent = random.choice(closest)
+    piece1 = next(p for p in pieces if p.id == anchor.piece_id)
+    piece2 = next(p for p in pieces if p.id == opponent.piece_id)
+    return {"piece1": piece1, "piece2": piece2}
+
+
+@app.post("/vote")
+def cast_vote(
+    vote: VoteRequest,
+    response: Response,
+    db: Session = Depends(get_db),
+    session_id: str | None = Cookie(default=None)
+):
+    
+    if session_id is None:
+        session_id = str(uuid.uuid4()) 
+        response.set_cookie(key="session_id", value=session_id, httponly=True, max_age=60*60*24*365)
+
+    a, b = vote.winner_piece_id, vote.loser_piece_id
+    already_voted = db.query(Vote).filter(
+    Vote.session_id == session_id,
+    or_(and_(Vote.winner_piece_id == a, Vote.loser_piece_id == b),
+        and_(Vote.winner_piece_id == b, Vote.loser_piece_id == a))).first()
+
+    if already_voted is not None:
+        raise HTTPException(status_code=429, detail="Already voted on this pairing")
+
+    winner = db.query(Rating).filter(
+            Rating.piece_id == vote.winner_piece_id,
+            Rating.vote_type == vote.vote_type).first()
+
+    loser = db.query(Rating).filter(
+            Rating.piece_id == vote.loser_piece_id,
+            Rating.vote_type == vote.vote_type).first()
+            
+    if winner is None or loser is None:
+        raise HTTPException(status_code=404, detail="One or both pieces not found")
+
+    k = 32
+    expected_winner = 1 / (1 + 10 ** ((loser.elo - winner.elo) / 400))
+    expected_loser = 1 - expected_winner
+    winner.elo = winner.elo + k*(1 - expected_winner)
+    loser.elo = loser.elo + k*(0 - expected_loser)
+
+    winner.win_count += 1
+    loser.loss_count += 1
+
+    db.add(Vote(
+    winner_piece_id=vote.winner_piece_id,
+    loser_piece_id=vote.loser_piece_id,
+    vote_type=vote.vote_type,
+    session_id=session_id))
+
+    db.commit()
+    db.refresh(winner)
+    db.refresh(loser)
+
+    return {"winner": winner, "loser": loser}
+    
+
+@app.get("/leaderboard")
+def leaderboard(type: str, db: Session = Depends(get_db)):
+    ranking = db.query(Rating).filter(Rating.vote_type == type).order_by(Rating.elo.desc()).all()
+    return ranking
