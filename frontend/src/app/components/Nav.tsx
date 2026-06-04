@@ -2,9 +2,9 @@
 import { Menu, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
-type NavProps = { onCriteriaClick: () => void };
+type NavProps = { onCriteriaClick: () => void; onHowItWorksClick: () => void };
 
-export default function Nav({ onCriteriaClick }: NavProps) {
+export default function Nav({ onCriteriaClick, onHowItWorksClick }: NavProps) {
     const [open, setOpen] = useState(false);
     const navRef = useRef<HTMLElement>(null);
     const links = [
@@ -28,7 +28,8 @@ export default function Nav({ onCriteriaClick }: NavProps) {
             <div className="flex items-center justify-between">
                 <a href="#hero" className="text-xl font-bold hover:text-piano-gold transition">Rankey</a>
 
-                <div className="hidden md:flex gap-6 lg:gap-12 items-center">
+                <div className="hidden md:flex gap-8 lg:gap-14 items-center">
+                    <button type="button" onClick={onHowItWorksClick} className="hover:text-piano-gold font-medium text-base transition cursor-pointer">How It Works</button>
                     {links.map(l => (
                         <a key={l.href} href={l.href} className="font-medium text-base hover:text-piano-gold transition">{l.label}</a>
                     ))}
@@ -42,6 +43,7 @@ export default function Nav({ onCriteriaClick }: NavProps) {
 
             {open && (
                 <div className="md:hidden flex flex-col gap-4 mt-4 pb-1">
+                    <button type="button" onClick={() => { onHowItWorksClick(); setOpen(false); }} className="text-left hover:text-piano-gold font-medium text-base transition cursor-pointer">How It Works</button>
                     {links.map(l => (
                         <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="font-medium text-base hover:text-piano-gold transition">{l.label}</a>
                     ))}

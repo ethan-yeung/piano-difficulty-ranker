@@ -14,6 +14,7 @@ import { HelpCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import VotingSection from "./components/VotingSection";
 import Leaderboard from "./components/Leaderboard";
+import HowItWorksModal from "./components/HowItWorksModal";
 
 
 export default function Home() {
@@ -26,6 +27,7 @@ export default function Home() {
     const [criteriaOpen, setCriteriaOpen] = useState(false);
     const [compareView, setCompareView] = useState<"stars" | "radar">("stars");
     const [displayCount, setDisplayCount] = useState(0);
+    const [howItWorksOpen, setHowItWorksOpen] = useState(false);
 
     useEffect(() => {
         async function load() {
@@ -115,7 +117,7 @@ export default function Home() {
 
     return (
         <>
-            <Nav onCriteriaClick={() => setCriteriaOpen(true)} />
+            <Nav onCriteriaClick={() => setCriteriaOpen(true)} onHowItWorksClick={() => setHowItWorksOpen(true)} />
 
             <section
                 id="hero"
@@ -265,6 +267,10 @@ export default function Home() {
 
             <VotingSection />
             <Leaderboard pieces={pieces} />
+
+            <AnimatePresence>
+                {howItWorksOpen && <HowItWorksModal onClose={() => setHowItWorksOpen(false)} />}
+            </AnimatePresence>
 
             <AnimatePresence>
                 {selectedPiece && (
