@@ -396,7 +396,7 @@ def cast_vote(
     session_id: str | None = Cookie(default=None)
 ):
     
-      if session_id is None:
+    if session_id is None:
         session_id = str(uuid.uuid4())
         is_prod = os.environ.get("ENV") == "production"
         response.set_cookie(
