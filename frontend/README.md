@@ -1,6 +1,6 @@
 # Rankey
 
-Rankey iss a a weighted comparison tool for classical piano repertoire, ranking pieces 
+Rankey is a a weighted comparison tool for classical piano repertoire, ranking pieces 
 across five dimensions of difficulty.
 
 🎹 **Live soon:** [rankey.app](https://rankey.app)
