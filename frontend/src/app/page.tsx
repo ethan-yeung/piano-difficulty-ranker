@@ -12,6 +12,8 @@ import { Winners } from "./lib/types";
 import CriteriaModal from "./components/CriteriaModal";
 import { HelpCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import VotingSection from "./components/VotingSection";
+import Leaderboard from "./components/Leaderboard";
 
 
 export default function Home() {
@@ -178,7 +180,7 @@ export default function Home() {
             </section>
 
             <section id="compare" className="px-4 md:px-8 py-8 md:py-16">
-                <div className="flex items-center gap-4 mb-8 md:mb-12 max-w-screen-2xl mx-auto">
+                <div className="flex items-center mt-3 gap-4 mb-8 md:mb-12 max-w-screen-2xl mx-auto">
 
                     <span className="text-piano-cream text-sm uppercase tracking-widest font-bold">
                         Compare
@@ -219,21 +221,24 @@ export default function Home() {
                     <div className="hidden md:block h-0.5 bg-piano-gold/50 flex-1" />
                 </div>
 
+
                 <AnimatePresence mode="wait">
                     {comparePieces.length === 0 ? (
-                        <motion.button
-                            key="empty"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            type="button"
-                            onClick={() => {
-                                document.getElementById("pieces")?.scrollIntoView({ behavior: "smooth" });
-                            }}
-                            className="text-piano-muted hover:text-piano-cream block mx-auto text-center cursor-pointer transition"
-                        >
-                            Click the + on any piece above to add it to the comparison.
-                        </motion.button>
+                        <div className="min-h-[30vh] flex items-center justify-center">
+                            <motion.button
+                                key="empty"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                type="button"
+                                onClick={() => {
+                                    document.getElementById("pieces")?.scrollIntoView({ behavior: "smooth" });
+                                }}
+                                className="text-piano-muted hover:text-piano-cream block mx-auto text-center cursor-pointer transition"
+                            >
+                                Click the + on any piece above to add it to the comparison.
+                            </motion.button>
+                        </div>
                     ) : (
                         <motion.div
                             key="grid"
@@ -257,6 +262,9 @@ export default function Home() {
                 </AnimatePresence>
             </section>
 
+
+            <VotingSection />
+            <Leaderboard pieces={pieces} />
 
             <AnimatePresence>
                 {selectedPiece && (

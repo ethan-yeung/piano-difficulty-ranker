@@ -23,7 +23,7 @@ export default function PieceCard({ piece, onClick, inCompare, onCompareToggle, 
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.2 }} 
             className="relative rounded-lg bg-piano-surface p-6 md:p-8 border border-piano-border cursor-pointer 
-            hover:border-piano-gold hover:shadow-[0_0_20px_rgba(212,167,68,0.3)] transition-[border-color,box-shadow] duration-300"
+            hover:border-piano-gold hover:shadow-[0_0_24px_2px_rgba(212,167,68,0.35)] transition-[border-color,box-shadow] duration-300"
             onClick={onClick}>
                 
 
@@ -49,7 +49,7 @@ export default function PieceCard({ piece, onClick, inCompare, onCompareToggle, 
                     {inCompare ? <Check className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
                 </motion.span>
             </button>
-            <h2 className="font-display text-piano-cream text-xl md:text-2xl mb-0.5">{piece.title}</h2>
+            <h2 className="font-display text-piano-cream text-xl md:text-2xl mb-0.5 text-balance">{piece.title}</h2>
             <p className="text-piano-muted text-sm mb-4">{piece.composer}</p>
 
             <div className="flex items-center gap-2">

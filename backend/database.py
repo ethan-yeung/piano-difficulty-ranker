@@ -1,7 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
+import os
 
-DATABASE_URL = "sqlite:///./rankey.db"
+DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///./rankey.db")
 
 engine = create_engine(
     DATABASE_URL,

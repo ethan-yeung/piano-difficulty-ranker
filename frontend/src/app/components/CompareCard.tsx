@@ -32,7 +32,7 @@ export default function CompareCard({ piece, onRemove, winners, viewMode }: Comp
     ];
 
     const isOverallWinner = winners !== null && piece.overall === winners.overall;
-    const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(piece.title + " " + piece.composer)}`;
+    const youtubeSearchUrl = piece.youtube_url || `https://www.youtube.com/results?search_query=${encodeURIComponent(piece.title + " " + piece.composer)}`;
 
     return (
         <motion.div
@@ -49,7 +49,7 @@ export default function CompareCard({ piece, onRemove, winners, viewMode }: Comp
                     ease: "easeInOut"
                 }
             }}
-            className="relative rounded-lg bg-piano-surface border border-piano-border p-4 md:p-6"
+            className="relative rounded-lg bg-piano-surface border border-piano-border p-4 md:p-5"
         >
             <button
                 type="button"
@@ -64,13 +64,13 @@ export default function CompareCard({ piece, onRemove, winners, viewMode }: Comp
                 {piece.tier}
             </p>
 
-            <h3 className="font-display text-piano-cream text-xl mb-1 pr-6">
+            <h3 className="font-display text-piano-cream text-xl mb-1 pr-6 text-balance">
                 {piece.title}
             </h3>
 
-            <p className="text-piano-muted text-sm mb-6">{piece.composer}</p>
+            <p className="text-piano-muted text-sm mb-4">{piece.composer}</p>
 
-            <div className="min-h-[165px]">
+            <div className="min-h-[140px]">
                 <AnimatePresence mode="wait">
                     {viewMode === "stars" ? (
                         <motion.div
@@ -106,7 +106,7 @@ export default function CompareCard({ piece, onRemove, winners, viewMode }: Comp
                             transition={{ duration: 0.2 }}
                         >
                             <div tabIndex={-1} className="outline-none">
-                                {<ResponsiveContainer width="100%" height={165}>
+                                {<ResponsiveContainer width="100%" height={140}>
                                     <RadarChart data={data}>
                                         <PolarGrid stroke="#2A2A2A" />
                                         <PolarAngleAxis dataKey="dimension" tick={{ fill: "#A09988", fontSize: 11 }} />
@@ -137,7 +137,7 @@ export default function CompareCard({ piece, onRemove, winners, viewMode }: Comp
             </div>
 
 
-            <div className="mt-6 pt-4 border-t border-piano-border text-center">
+            <div className="mt-4 pt-3 border-t border-piano-border text-center">
                 <p className="font-display text-piano-gold text-4xl">
                     {piece.overall.toFixed(1)}
                 </p>

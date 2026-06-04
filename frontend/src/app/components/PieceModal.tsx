@@ -18,7 +18,7 @@ export default function PieceModal({ piece, onClose }: PieceModalProps) {
         {label: "Ornamentation", value: piece.ornamentation, weight: 0.10 },
     ];
 
-    const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(piece.title + " " + piece.composer)}`;
+    const youtubeSearchUrl = piece.youtube_url || `https://www.youtube.com/results?search_query=${encodeURIComponent(piece.title + " " + piece.composer)}`;
 
     return (
         <motion.div
